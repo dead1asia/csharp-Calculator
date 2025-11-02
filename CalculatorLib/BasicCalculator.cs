@@ -1,5 +1,6 @@
 ﻿
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 namespace CalculatorLib
 {
@@ -7,7 +8,7 @@ namespace CalculatorLib
     {
         public virtual double InputParsing(string userInput)
         {
-            string[] chars = userInput.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string[] chars = ModifiedUserInput(userInput).Split(' ', StringSplitOptions.RemoveEmptyEntries);
             double num1, num2;
             if (chars.Length != 3)
             {
@@ -53,6 +54,18 @@ namespace CalculatorLib
         {
             if (num2 == 0) { throw new DivideByZeroException("Divide by zero is not allowed"); }
             return num1 / num2;
+        }
+        private static readonly string[] possibleOperators = {
+            "+", "-", "*", "/", "sqrt", "sin", "cos", "pow", "&",
+            "and", "|", "or", "binary", "tobinary", "hex", "tohex"};
+        public static string ModifiedUserInput(string userInput)
+        {
+            string modifiedInput = userInput;
+            foreach (string symbol in possibleOperators)
+            {
+                modifiedInput = modifiedInput.Replace(symbol, $" {symbol} ");
+            }
+            return modifiedInput;
         }
     }
 }

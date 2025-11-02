@@ -8,9 +8,10 @@ namespace CalculatorLib
 {
     public class ProgrammerCalculator : BasicCalculator
     {
+        
         public override double InputParsing(string userInput)
         {
-            string[] chars = userInput.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string[] chars = ModifiedUserInput(userInput).Split(' ', StringSplitOptions.RemoveEmptyEntries);
             double num1;
             if (chars.Length == 2)
             {
@@ -27,11 +28,11 @@ namespace CalculatorLib
         {
             double result = mathOperator switch
             {
-                "&" => And(num1, num2),
-                "|" => Or(num1, num2),
-                "^" => XOr(num1, num2),
-                "binary" => ToBinary(num1),
-                "hex" => ToHex(num1),
+                "&" or "and" => And(num1, num2),
+                "|" or "or" => Or(num1, num2),
+                "^" or "xor" => XOr(num1, num2),
+                "binary" or "tobinary" => ToBinary(num1),
+                "hex" or "tohex" => ToHex(num1),
                 _ => base.Calculation(mathOperator, num1, num2)
             };
             return result;
