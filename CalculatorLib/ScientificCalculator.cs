@@ -10,7 +10,7 @@ namespace CalculatorLib
     {
         public override double InputParsing(string userInput)
         {
-            string[] chars = userInput.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string[] chars = ModifiedUserInput(userInput).Split(' ', StringSplitOptions.RemoveEmptyEntries);
             double num1, num2;
             if (chars.Length == 2)
             {
